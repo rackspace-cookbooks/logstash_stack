@@ -1,0 +1,39 @@
+---
+driver:
+  name: vagrant
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+    driver_config:
+      box: opscode-ubuntu-12.04
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-12.04_chef-provisionerless.box
+  - name: debian-7.2
+    driver_config:
+      box: opscode-debian-7.2.0
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_debian-7.2.0_chef-provisionerless.box
+  - name: centos-6.4
+    driver_config:
+      box: opscode-centos-6.4
+      box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.4_chef-provisionerless.box
+
+suites:
+  - name: debian
+    run_list:
+      - recipe[logstash_stack]
+    attributes:
+    includes:
+      - ubuntu-12.04
+      - debian-7.2
+
+  - name: centos
+    run_list:
+      - recipe[logstash_stack]
+    attributes:
+    includes:
+      - centos-6.4
