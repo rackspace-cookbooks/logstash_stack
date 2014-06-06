@@ -2,13 +2,17 @@
 
 A free standing Logstash 1.4, Elasticsearch 1.1, Kibana 3.0 rapid deployment cookbook.  This is designed to get up and running quickly and easily with packages from repos, and mostly default options.  Supports adding additional ES shards.
 
-The logstash server will setup a syslog listener on 5544.  Feel free to direct your syslogs at it.  If you want additional plugins, or agent, you're more than welcome to write a wrapper cookbook to include that.  This cookbook should remain mostly static.
+The logstash server will setup a syslog listener on 5544.  Then run logstash_stack::rsyslog_client on each machine you wish to have deliver rsyslog messages to the server.  If you want additional plugins, or agent, you're more than welcome to write a wrapper cookbook to include that.  This cookbook should remain mostly static.
+
+You can include the logstash_stack::rsyslog_client on any server you want to have rsyslog shipped to logstash.
 
 ## Supported Platforms
 
 RHEL, Debian
 
 ## Attributes
+
+`node['logstash_stack']['logstash_server_ip']` - Default is nil.  Set if you're running through Chef Solo or you wish to override searching for the logstash server.  Otherwise, it will run the search, and should locate the server.
 
 ## Usage
 
@@ -24,7 +28,7 @@ Include `logstash_stack` in your node's `run_list`:
 }
 ```
 
-### logstash_stack:elasticsearch
+### logstash_stack::elasticsearch
 
 If you want ElasticSearch redundancy/sharding for logstash, you can run only the elasticsearch recipe:
 
@@ -32,6 +36,18 @@ If you want ElasticSearch redundancy/sharding for logstash, you can run only the
 {
   "run_list": [
     "recipe[logstash_stack::elasticsearch]"
+  ]
+}
+```
+
+### logstash_stack::rsyslog_client
+
+Include this recipe to configure rsyslog on any server to ship to your logstash server
+
+```json
+{
+  "run_list": [
+    "recipe[logstash_stack::rsyslog_client]"
   ]
 }
 ```

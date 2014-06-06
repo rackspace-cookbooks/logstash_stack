@@ -73,10 +73,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.json = {
+      "logstash_stack" => {
+        "logstash_server_ip" => "10.20.30.31"
+      }
     }
 
     chef.run_list = [
-        "recipe[logstash_stack::default]"
+        "recipe[logstash_stack::rsyslog_client]"
     ]
   end
 end
