@@ -23,7 +23,7 @@ platforms:
       box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.4_chef-provisionerless.box
 
 suites:
-  - name: debian
+  - name: debian_ls_server
     run_list:
       - recipe[logstash_stack]
     attributes:
@@ -31,9 +31,28 @@ suites:
       - ubuntu-12.04
       - debian-7.2
 
-  - name: centos
+  - name: centos_ls_server
     run_list:
       - recipe[logstash_stack]
     attributes:
+    includes:
+      - centos-6.4
+
+  - name: debian_rsyslog_client
+    run_list:
+      - recipe[logstash_stack::rsyslog_client]
+    attributes:
+      logstash_stack:
+        logstash_server_ip: "10.20.30.40"
+    includes:
+      - ubuntu-12.04
+      - debian-7.2
+
+  - name: centos_rsyslog_client
+    run_list:
+      - recipe[logstash_stack::rsyslog_client]
+    attributes:
+      logstash_stack:
+        logstash_server_ip: "10.20.30.40"
     includes:
       - centos-6.4

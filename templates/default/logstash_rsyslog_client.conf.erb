@@ -1,0 +1,6 @@
+# CHEF MANAGED FILE: DO NOT EDIT
+# Controlling Cookbook: <%= @cookbook_name %>
+
+# Ship rsyslog to remote logstash server
+# remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional
+*.* @@<%= node['logstash_stack']['logstash_server_ip'] %>:5544

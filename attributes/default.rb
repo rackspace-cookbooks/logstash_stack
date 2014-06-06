@@ -16,3 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+# Setting this is required in chef-solo mode.  In chef-client mode this will
+# override searching for a logstash server.
+default['logstash_stack']['logstash_server_ip'] = nil
