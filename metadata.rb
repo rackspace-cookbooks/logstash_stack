@@ -15,3 +15,4 @@ end
 
 depends 'yum', '~> 3.2'
 depends 'apt', '~> 2.4'
+depends 'openssl'

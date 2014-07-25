@@ -17,7 +17,17 @@
 # limitations under the License.
 #
 
+::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+
 package 'nginx'
+package 'httpd-tools'
+
+node.set_unless['logstash_stack']['kibana']['htpasswd'] = secure_password
+
+execute 'create kibana htpasswd file' do
+  command "htpasswd -bc /etc/nginx/logstash.htpasswd kibana #{node['logstash_stack']['kibana']['htpasswd']}"
+  only_if { File.size?('/etc/nginx/logstash.htpasswd').nil? }
+end
 
 template '/etc/nginx/conf.d/default.conf' do
   source    'nginx_default.conf.erb'
