@@ -24,7 +24,10 @@
 
 # For information on supported formats and syntax for the config file, see
 # <http://elasticsearch.org/guide/en/elasticsearch/reference/current/setup-configuration.html>
+#
 
+################################# Security Fix ################################
+script.disable_dynamic: true
 
 ################################### Cluster ###################################
 
@@ -212,7 +215,8 @@ cluster.name: logstash
 
 # Set both 'bind_host' and 'publish_host':
 #
-# network.host: 192.168.0.1
+########## Security Fix 2 ############
+network.host: localhost
 
 # Set a custom port for the node to node communication (9300 by default):
 #
@@ -321,7 +325,8 @@ cluster.name: logstash
 #
 # 1. Disable multicast discovery (enabled by default):
 #
-# discovery.zen.ping.multicast.enabled: false
+discovery.zen.ping.multicast.enabled: false
+
 #
 # 2. Configure an initial list of master nodes in the cluster
 #    to perform discovery when new nodes (master or data) are started:
