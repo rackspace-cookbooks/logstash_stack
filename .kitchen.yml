@@ -27,6 +27,9 @@ suites:
     run_list:
       - recipe[logstash_stack]
     attributes:
+      logstash_stack:
+        kibana:
+          htpasswd: "kibana"
     includes:
       - ubuntu-12.04
       - debian-7.2
@@ -35,6 +38,9 @@ suites:
     run_list:
       - recipe[logstash_stack]
     attributes:
+      logstash_stack:
+        kibana:
+          htpasswd: "kibana"
     includes:
       - centos-6.4
 

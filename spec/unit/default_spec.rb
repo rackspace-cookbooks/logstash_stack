@@ -30,7 +30,7 @@ describe 'logstash_stack::default' do
 
   it 'installs nginx and sets up kibana' do
     expect(chef_run).to install_package('nginx')
-    expect(chef_run).to install_package('httpd-tools')
+    expect(chef_run).to install_package('apache2-utils')
     expect(chef_run).to run_execute('create kibana htpasswd file')
     expect(chef_run).to create_template('/etc/nginx/conf.d/default.conf')
     expect(chef_run).to render_file('/etc/nginx/conf.d/default.conf').with_content('kibana')
@@ -70,6 +70,7 @@ describe 'logstash_stack::default' do
 
   it 'installs nginx and sets up kibana' do
     expect(chef_run).to install_package('nginx')
+    expect(chef_run).to install_package('apache2-utils')
     expect(chef_run).to create_template('/etc/nginx/conf.d/default.conf')
     expect(chef_run).to render_file('/etc/nginx/conf.d/default.conf').with_content('kibana')
     expect(chef_run.template('/etc/nginx/conf.d/default.conf')).to notify('service[nginx]').to(:restart)
@@ -109,6 +110,7 @@ describe 'logstash_stack::default' do
 
   it 'installs nginx and sets up kibana' do
     expect(chef_run).to install_package('nginx')
+    expect(chef_run).to install_package('httpd-tools')
     expect(chef_run).to create_template('/etc/nginx/conf.d/default.conf')
     expect(chef_run).to render_file('/etc/nginx/conf.d/default.conf').with_content('kibana')
     expect(chef_run.template('/etc/nginx/conf.d/default.conf')).to notify('service[nginx]').to(:restart)

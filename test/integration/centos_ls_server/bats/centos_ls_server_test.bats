@@ -16,5 +16,5 @@
 }
 
 @test "Connect to confirm end-to-end deployment" {
-	wget -q http://127.0.0.1 -O - | grep Kibana
+	wget --user kibana --password kibana -q http://127.0.0.1 -O - | grep Kibana
 }
