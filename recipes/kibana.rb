@@ -20,7 +20,13 @@
 ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
 
 package 'nginx'
-package 'httpd-tools'
+
+case node['platform_family']
+when 'debian'
+  package 'apache2-utils'
+when 'rhel'
+  package 'httpd-tools'
+end
 
 node.set_unless['logstash_stack']['kibana']['htpasswd'] = secure_password
 

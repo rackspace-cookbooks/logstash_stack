@@ -6,7 +6,7 @@ describe 'logstash_stack::default' do
   it 'sets up repos for Ubuntu' do
     expect(chef_run).to include_recipe('apt')
     expect(chef_run).to add_apt_repository('logstash-1.4')
-    expect(chef_run).to add_apt_repository('elasticsearch-1.1')
+    expect(chef_run).to add_apt_repository('elasticsearch-1.3')
   end
 
   it 'installs java and elasticsearch' do
@@ -30,6 +30,8 @@ describe 'logstash_stack::default' do
 
   it 'installs nginx and sets up kibana' do
     expect(chef_run).to install_package('nginx')
+    expect(chef_run).to install_package('apache2-utils')
+    expect(chef_run).to run_execute('create kibana htpasswd file')
     expect(chef_run).to create_template('/etc/nginx/conf.d/default.conf')
     expect(chef_run).to render_file('/etc/nginx/conf.d/default.conf').with_content('kibana')
     expect(chef_run.template('/etc/nginx/conf.d/default.conf')).to notify('service[nginx]').to(:restart)
@@ -44,7 +46,7 @@ describe 'logstash_stack::default' do
   it 'sets up repos for Debian' do
     expect(chef_run).to include_recipe('apt')
     expect(chef_run).to add_apt_repository('logstash-1.4')
-    expect(chef_run).to add_apt_repository('elasticsearch-1.1')
+    expect(chef_run).to add_apt_repository('elasticsearch-1.3')
   end
 
   it 'installs java and elasticsearch' do
@@ -68,6 +70,7 @@ describe 'logstash_stack::default' do
 
   it 'installs nginx and sets up kibana' do
     expect(chef_run).to install_package('nginx')
+    expect(chef_run).to install_package('apache2-utils')
     expect(chef_run).to create_template('/etc/nginx/conf.d/default.conf')
     expect(chef_run).to render_file('/etc/nginx/conf.d/default.conf').with_content('kibana')
     expect(chef_run.template('/etc/nginx/conf.d/default.conf')).to notify('service[nginx]').to(:restart)
@@ -82,7 +85,7 @@ describe 'logstash_stack::default' do
   it 'sets up repos for CentOS' do
     expect(chef_run).to include_recipe('yum')
     expect(chef_run).to create_yum_repository('logstash-1.4')
-    expect(chef_run).to create_yum_repository('elasticsearch-1.1')
+    expect(chef_run).to create_yum_repository('elasticsearch-1.3')
     expect(chef_run).to create_yum_repository('epel')
   end
 
@@ -107,6 +110,7 @@ describe 'logstash_stack::default' do
 
   it 'installs nginx and sets up kibana' do
     expect(chef_run).to install_package('nginx')
+    expect(chef_run).to install_package('httpd-tools')
     expect(chef_run).to create_template('/etc/nginx/conf.d/default.conf')
     expect(chef_run).to render_file('/etc/nginx/conf.d/default.conf').with_content('kibana')
     expect(chef_run.template('/etc/nginx/conf.d/default.conf')).to notify('service[nginx]').to(:restart)

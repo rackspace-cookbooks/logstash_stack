@@ -26,9 +26,9 @@ yum_repository 'logstash-1.4' do
   action :create
 end
 
-yum_repository 'elasticsearch-1.1' do
-  description 'Elasticsearch repository for 1.1.x packages'
-  baseurl 'http://packages.elasticsearch.org/elasticsearch/1.1/centos'
+yum_repository 'elasticsearch-1.3' do
+  description 'Elasticsearch repository for 1.3.x packages'
+  baseurl 'http://packages.elasticsearch.org/elasticsearch/1.3/centos'
   gpgkey 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch'
   action :create
 end
