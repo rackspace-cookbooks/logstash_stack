@@ -6,7 +6,7 @@ describe 'logstash_stack::default' do
   it 'sets up repos for Ubuntu' do
     expect(chef_run).to include_recipe('apt')
     expect(chef_run).to add_apt_repository('logstash-1.4')
-    expect(chef_run).to add_apt_repository('elasticsearch-1.1')
+    expect(chef_run).to add_apt_repository('elasticsearch-1.3')
   end
 
   it 'installs java and elasticsearch' do
@@ -46,7 +46,7 @@ describe 'logstash_stack::default' do
   it 'sets up repos for Debian' do
     expect(chef_run).to include_recipe('apt')
     expect(chef_run).to add_apt_repository('logstash-1.4')
-    expect(chef_run).to add_apt_repository('elasticsearch-1.1')
+    expect(chef_run).to add_apt_repository('elasticsearch-1.3')
   end
 
   it 'installs java and elasticsearch' do
@@ -85,7 +85,7 @@ describe 'logstash_stack::default' do
   it 'sets up repos for CentOS' do
     expect(chef_run).to include_recipe('yum')
     expect(chef_run).to create_yum_repository('logstash-1.4')
-    expect(chef_run).to create_yum_repository('elasticsearch-1.1')
+    expect(chef_run).to create_yum_repository('elasticsearch-1.3')
     expect(chef_run).to create_yum_repository('epel')
   end
 

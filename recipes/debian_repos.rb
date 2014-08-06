@@ -28,8 +28,8 @@ apt_repository 'logstash-1.4' do
   action :add
 end
 
-apt_repository 'elasticsearch-1.1' do
-  uri 'http://packages.elasticsearch.org/elasticsearch/1.1/debian'
+apt_repository 'elasticsearch-1.3' do
+  uri 'http://packages.elasticsearch.org/elasticsearch/1.3/debian'
   distribution 'stable'
   components ['main']
   keyserver 'keyserver.ubuntu.com'

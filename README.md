@@ -1,6 +1,6 @@
 # logstash_stack-cookbook
 
-A free standing Logstash 1.4, Elasticsearch 1.1, Kibana 3.0 rapid deployment cookbook.  This is designed to get up and running quickly and easily with packages from repos, and mostly default options.  Supports adding additional ES shards.
+A free standing Logstash 1.4, Elasticsearch 1.3, Kibana 3.0 rapid deployment cookbook.  This is designed to get up and running quickly and easily with packages from repos, and mostly default options.  Supports adding additional ES shards.
 
 The logstash server will setup a syslog listener on 5544.  Then run logstash_stack::rsyslog_client on each machine you wish to have deliver rsyslog messages to the server.  If you want additional plugins, or agent, you're more than welcome to write a wrapper cookbook to include that.  This cookbook should remain mostly static.
 
@@ -13,6 +13,8 @@ RHEL, Debian
 ## Attributes
 
 `node['logstash_stack']['logstash_server_ip']` - Default is nil.  Set if you're running through Chef Solo or you wish to override searching for the logstash server.  Otherwise, it will run the search, and should locate the server.
+
+`node['logstash_stack']['kibana']['htpasswd']` - Default is nil.  If it's unset it will place kibana behind http auth with a random password.  Add your own user/password with: `htpasswd /etc/nginx/logstash.htpasswd <user>`.  (As a note, I will be revamping this most likely in the next version).  If you do set the attribute, then your user will be kibana with the password in the attribute.
 
 ## Usage
 
